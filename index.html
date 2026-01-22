@@ -1,1 +1,117 @@
-hello world 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Open Data Dashboard (World Bank)</title>
+  <link rel="stylesheet" href="styles.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+  <header class="header">
+    <h1>Open Data Dashboard</h1>
+    <p>
+      This site fetches public data from the <strong>World Bank Open Data API</strong>
+      and visualises it with Chart.js. It includes loading states, error handling,
+      and a responsive layout using CSS Grid and Flexbox.
+    </p>
+  </header>
+
+  <main class="container">
+  <section class="controls card">
+    <h2>Open Data Dashboard</h2>
+
+    <div class="control-row">
+      <label for="country">Country:</label>
+      <select id="country">
+        <option value="ZAF" selected>South Africa (ZAF)</option>
+        <option value="NGA">Nigeria (NGA)</option>
+        <option value="KEN">Kenya (KEN)</option>
+        <option value="GHA">Ghana (GHA)</option>
+        <option value="USA">United States (USA)</option>
+        <option value="CHN">China (CHN)</option>
+      </select>
+
+      <button id="reloadBtn">Reload</button>
+    </div>
+
+    <div id="status" class="status" aria-live="polite"></div>
+    <div id="error" class="error" role="alert"></div>
+
+    <details class="source">
+      <summary>Data source (required)</summary>
+      <p>
+        Source: World Bank Open Data API (public open-data). Indicators:
+        <br/>• GDP (current US$): <code>NY.GDP.MKTP.CD</code>
+        <br/>• Population (total): <code>SP.POP.TOTL</code>
+        <br/>• Inflation (annual %): <code>FP.CPI.TOTL.ZG</code>
+      </p>
+    </details>
+  </section>
+
+  <!-- KPI cards (like dashboard) -->
+  <section class="kpis">
+    <div class="kpi card">
+      <div class="kpi-title">Latest GDP</div>
+      <div class="kpi-value" id="kpiGDP">—</div>
+      <div class="kpi-sub" id="kpiGDPYear">—</div>
+    </div>
+
+    <div class="kpi card">
+      <div class="kpi-title">Latest Population</div>
+      <div class="kpi-value" id="kpiPOP">—</div>
+      <div class="kpi-sub" id="kpiPOPYear">—</div>
+    </div>
+
+    <div class="kpi card">
+      <div class="kpi-title">Latest Inflation</div>
+      <div class="kpi-value" id="kpiINF">—</div>
+      <div class="kpi-sub" id="kpiINFYear">—</div>
+    </div>
+  </section>
+
+  <!-- Charts grid (professional sizing) -->
+  <section class="charts">
+    <div class="card chart-card">
+      <div class="card-title">GDP (current US$)</div>
+      <div class="chart-wrap"><canvas id="gdpChart"></canvas></div>
+    </div>
+
+    <div class="card chart-card">
+      <div class="card-title">Population (total)</div>
+      <div class="chart-wrap"><canvas id="popChart"></canvas></div>
+    </div>
+
+    <div class="card chart-card">
+      <div class="card-title">Inflation (annual %)</div>
+      <div class="chart-wrap"><canvas id="inflChart"></canvas></div>
+    </div>
+  </section>
+
+  <!-- Table -->
+  <section class="card table-card">
+    <div class="card-title">Latest values (table)</div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Indicator</th>
+            <th>Year</th>
+            <th>Value</th>
+          </tr>
+        </thead>
+        <tbody id="latestTableBody"></tbody>
+      </table>
+    </div>
+  </section>
+</main>
+
+
+  <footer class="footer">
+    <small>Built by Yongama Goso using HTML, CSS Grid/Flex, vanilla JS, and Chart.js.</small>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
